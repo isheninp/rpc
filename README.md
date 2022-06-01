@@ -35,11 +35,15 @@ end
 
 Client side:
 ```
+# config/routes.rb
+mount Rpc::Engine => '/', as: 'rpc'
+
 # config/initializers/rpc.rb
 # set up RPC servers
-::Pim = Rpc::Server.new("http://pim:3000/rpc")
+::Pim = ::Rpc::Server.new("http://pim:3000/rpc")
 ::Commerce = Rpc::Server.new("http://commerce:3000/rpc")
 
+# somewhere in your app
 # call to RPC-server
 result = Pim.ImportCreate(props: product_data)
 puts result.status # => 'success' / 'error'
