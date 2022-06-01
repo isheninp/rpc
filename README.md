@@ -47,8 +47,8 @@ Client side:
 # somewhere in your app
 # call to RPC-server
 result = Pim.ImportCreate(props: product_data)
-puts result.status # => 'success' / 'error'
-puts result.data # => json-response data
+puts result[:status] # => 'success' / 'error'
+puts result[:data] # => json-response data
 ```
 
 ## Installation
