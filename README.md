@@ -7,6 +7,9 @@ RPC server and client for communication between applications
 Server side:
 
 ```
+# config/routes.rb
+mount Rpc::Engine => '/', as: 'rpc'
+
 # allowed rpc-methods 
 # config/initializers/rpc.rb
 RPC_METHODS={
@@ -35,9 +38,6 @@ end
 
 Client side:
 ```
-# config/routes.rb
-mount Rpc::Engine => '/', as: 'rpc'
-
 # config/initializers/rpc.rb
 # set up RPC servers
 ::Pim = ::Rpc::Server.new("http://pim:3000/rpc")
