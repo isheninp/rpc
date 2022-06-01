@@ -27,8 +27,9 @@ class Import::Create
   include Interactor
 
   def call
-    # use context.props as interactor parameters
+    # you should use context.props as interactor parameters!
     .... your code here
+    # you should  use context.result as output object!
     context.result = product
   rescue => e
     context.fail!
