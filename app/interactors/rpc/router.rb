@@ -25,6 +25,8 @@ class Rpc::Router
 
   rescue => e
     
+    context.status = 'error'
+    context.data = e.message
     context.fail!
  
   end
