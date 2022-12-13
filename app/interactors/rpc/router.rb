@@ -12,19 +12,18 @@ class Rpc::Router
   def call
 
     method = RPC_METHODS[context.props[:method]]
-    
+
     if method
-      response = method.constantize.send(:call, context.props[:params][0])
+      response = method.constantize.send(:call, context.props[:params])
       context.data = response.result
       context.status = response.success? ? 'success' : 'error'
     else
       context.status = 'error'
       context.data = 'wrong method'
-      context.fail!
     end
 
   rescue => e
-    
+
     context.status = 'error'
     context.data = e.message
     context.fail!

@@ -10,8 +10,9 @@ Server side:
 # config/routes.rb
 mount Rpc::Engine => '/', as: 'rpc'
 
-# allowed rpc-methods 
 # config/initializers/rpc.rb
+
+# allowed rpc-methods 
 RPC_METHODS={
   "TaxonomyCreate" => "Taxonomy::Create",
   "TaxonCreateOrUpdate" => "Taxon::CreateOrUpdate",
@@ -19,6 +20,16 @@ RPC_METHODS={
 }.freeze
 
 ```
+Client side:
+```
+# config/initializers/rpc.rb
+
+# basic authorization
+RPC_USER=""
+RPC_PASSWORD=""
+
+```
+
 Put your business logic into interactors
 
 ```

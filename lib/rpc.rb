@@ -1,34 +1,33 @@
 require "rpc/version"
 require "rpc/engine"
+require 'net/http'
 
 module Rpc
 
   # RPC - client side!
   class Server
 
-    def initialize(url)
+    def initialize(url, authorization='dev:000')
       @url=url
+      @authorization = "Basic #{Base64.strict_encode64(authorization)}"
     end
     
     def method_missing(sym, *args, &block)
-      
-      # avoid pass params as array 
-      # uncomment => you must delete [0] at server side
-      # args = args.first if args.size == 1 && args.first.is_a?(Hash)
-      
+  
       response = Net::HTTP.post(
         URI(@url),
-        {method: sym, params: args}.to_json,
-        "Content-Type" => "application/json"
+        {method: sym, params: args.first}.to_json,
+        "Content-Type" => "application/json",
+        "Authorization" => @authorization
       )
-
-      JSON.parse(response.body)
-    
+  
+      JSON.parse(response.body)        
+      
     rescue => e
 
       {
         status: 'error',
-        data: e.message
+        data: "#{response&.code} #{response&.msg} #{e.message}".strip
       }
         
     end
