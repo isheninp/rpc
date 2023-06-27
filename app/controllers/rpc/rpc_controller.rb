@@ -10,7 +10,10 @@ module Rpc
 
       render json: {
         status: res.status,
-        data: res.data.as_json
+        data: res.data.as_json,
+        error_code: res.error_code,
+        error_id: res.error_id,
+        error_message: res.error_message
       }
 
     end
